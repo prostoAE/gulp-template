@@ -1,0 +1,27 @@
+// base folder
+@import
+'base/normalize',
+'base/variables',
+'base/mixins',
+'base/functions',
+'base/typography',
+'base/grid',
+'base/base';
+
+// layout folder
+@import
+'layout/header',
+'layout/footer',
+'layout/sidebar',
+'layout/popups',
+'layout/forms',
+'layout/navigation';
+
+// common folder
+@import
+'common/buttons';
+
+// pages folder
+@import
+'pages/home';
+

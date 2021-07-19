@@ -1,0 +1,6 @@
+// Google Font Import example
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+// Local files Import example
+//@include font-face('Stint', '../fonts/stint/StintUltraCondensed-Regular', 400, 'normal')
+@include font-face("StintUltraCondensed-Regular", "StintUltraCondensed-Regular", 400);
+

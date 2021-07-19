@@ -1,0 +1,70 @@
+@mixin mq($breakpoint) {
+    $raw-query: map_get($breakpoints, $breakpoint);
+
+    @if $raw-query {
+        $query: if(type-of($raw-query) == 'string',
+                unquote($raw-query),
+                inspect($raw-query)
+        );
+
+        @media #{$query} {
+            @content;
+        }
+    } @else {
+        @error 'Не указано значение для `#{$breakpoint}`. ' + 'Пожалуйста, убедитесь, что точка останова объявлена в карте `$breakpoints`.';
+    }
+}
+
+@mixin centering-xy() {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin centering-x() {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin centering-y() {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin placeholder($color, $size, $weight) {
+    &::-webkit-input-placeholder {
+        color: $color;
+        font-size: $size;
+        font-weight: $weight;
+    }
+    &:-moz-placeholder {
+        color: $color;
+        font-size: $size;
+        font-weight: $weight;
+    }
+    &::-moz-placeholder {
+        color: $color;
+        font-size: $size;
+        font-weight: $weight;
+    }
+    &:-ms-input-placeholder {
+        color: $color;
+        font-size: $size;
+        font-weight: $weight;
+    }
+}
+
+@mixin font-face($font-name, $file, $weight: normal, $style: normal) {
+    @font-face {
+        font-family: quote($font-name);
+        src: local("#{$file}"),
+            url('../fonts/#{$file}.woff2') format('woff2'),
+            url('../fonts/#{$file}.woff') format('woff'),
+            url('../fonts/#{$file}..ttf') format("truetype");
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
