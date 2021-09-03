@@ -13,6 +13,8 @@ const images = require('./gulp/tasks/images');
 const svg_sprite = require('./gulp/tasks/svg_sprite');
 const clean = require('./gulp/tasks/clean');
 
+const testLibs = require('./gulp/tasks/testLibs');
+
 function setMode(isProduction = false) {
     return cb => {
         process.env.NODE_ENV = isProduction ? 'production' : 'development';
@@ -21,7 +23,7 @@ function setMode(isProduction = false) {
 }
 
 // const dev = parallel(html, styles, scripts, fonts, images, vendor);
-const dev = parallel(html, styles, libs_styles, copy_jquery, scripts, libs_js, series(ttf2woff, ttf2woff2, fonts), images, svg_sprite);
+const dev = parallel(html, styles, libs_styles, copy_jquery, scripts, libs_js, series(ttf2woff, ttf2woff2, fonts, testLibs), images, svg_sprite);
 const build = series(clean, dev);
 
 module.exports.start = series(setMode(), build, serve);
