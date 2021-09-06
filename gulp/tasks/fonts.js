@@ -1,32 +1,36 @@
 const fs = require('fs');
+const path = require('path');
 const chalk = require('chalk');
+
+const allowedFormats = ['woff', 'woff2', 'ttf'];
 
 let srcFonts = 'src/assets/scss/_local-fonts.scss';
 let appFonts = 'dist/assets/fonts/';
-module.exports = function fonts(done) {
-    fs.writeFile(srcFonts, '', () => {});
+
+module.exports = function testLibs(done) {
     fs.readdir(appFonts, (err, items) => {
         if (items) {
-            let c_fontname;
-            for (let i = 0; i < items.length; i++) {
-                let fontname = items[i].split('.'),
-                    fontExt;
-                fontExt = fontname[1];
-                fontname = fontname[0];
-                if (c_fontname != fontname) {
-                    if (fontExt == 'woff' || fontExt == 'woff2' || fontExt == 'ttf') {
-                        fs.appendFile(srcFonts, `@include font-face("${fontname}", "${fontname}", 400);\r\n`, () => {});
-                        console.log(chalk.yellow( `
-                            Added new font: ${fontname}.
+            let currentName;
+
+            items.forEach((item) => {
+                let ext = path.extname(item);
+                let name = path.basename(item, ext);
+
+                if (allowedFormats.includes(ext.substring(1)) && currentName !== name) {
+                    fs.appendFile(srcFonts, `@include font-face("${name}", "${name}", 400);\r\n`, () => {
+                    });
+                    console.log(chalk.yellow(`
+                            Added new font: ${name}.
                             ----------------------------------------------------------------------------------
                             Please, move mixin call from src/assets/scss/_local-fonts.scss to src/assets/scss/base/_typography.scss and then change it!
                             ----------------------------------------------------------------------------------
                             `));
-                    }
                 }
-                c_fontname = fontname;
-            }
+
+                currentName = name;
+            });
         }
     });
+
     done();
 };
