@@ -1,14 +1,15 @@
-const {src, dest} = require('gulp');
-const plumber = require('gulp-plumber');
-const fileinclude = require('gulp-file-include');
-// const htmlValidator = require('gulp-w3c-html-validator');
-const webphtml = require('gulp-webp-html');
+import gulp from "gulp";
+import plumber from "gulp-plumber";
+import fileinclude from "gulp-file-include";
+import {htmlValidator} from "gulp-w3c-html-validator";
+import webphtml from "gulp-webp-html";
 
-module.exports = function html() {
-    return src(['src/*.{html,php}', '!src/partials/**/*.{html,php}'])
+export const html = () => {
+    return gulp.src(['src/*.{html,php}', '!src/partials/**/*.{html,php}'])
         .pipe(plumber())
         .pipe(fileinclude())
-        // .pipe(webphtml())
-        // .pipe(htmlValidator())
-        .pipe(dest('dist/'))
+        .pipe(webphtml())
+        .pipe(htmlValidator.analyzer({ignoreLevel: 'warning'}))
+        .pipe(htmlValidator.reporter({throwErrors: false}))
+        .pipe(gulp.dest('dist/'))
 };

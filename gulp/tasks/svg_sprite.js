@@ -1,11 +1,11 @@
-const {src, dest} = require('gulp');
-const svgSprite = require('gulp-svg-sprite');
-const svgmin = require('gulp-svgmin');
-const cheerio = require('gulp-cheerio');
-const replace = require('gulp-replace');
+import gulp from "gulp";
+import svgSprite from "gulp-svg-sprite";
+import svgmin from "gulp-svgmin";
+import cheerio from "gulp-cheerio";
+import replace from "gulp-replace";
 
-module.exports = function svg_sprite() {
-    return src('src/assets/img/svg/*.svg')
+export const svg_sprite = () => {
+    return gulp.src('src/assets/img/svg/*.svg')
     // minify svg
         .pipe(svgmin({
             js2svg: {
@@ -31,5 +31,5 @@ module.exports = function svg_sprite() {
                 }
             }
         }))
-        .pipe(dest('dist/assets/img/sprite'));
+        .pipe(gulp.dest('dist/assets/img/sprite'));
 };

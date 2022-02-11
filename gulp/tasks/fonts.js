@@ -1,13 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+import fs from "fs";
+import path from "path";
+import chalk from "chalk";
 
 const allowedFormats = ['woff', 'woff2', 'ttf'];
 
 let srcFonts = 'src/assets/scss/_local-fonts.scss';
 let appFonts = 'dist/assets/fonts/';
 
-module.exports = function testLibs(done) {
+export const fonts = (done) => {
     fs.readdir(appFonts, (err, items) => {
         if (items) {
             let currentName;

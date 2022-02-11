@@ -1,6 +1,6 @@
-const {src, dest} = require('gulp');
+import gulp from "gulp";
 
-module.exports = function copyJquery() {
-    return src('src/assets/vendor/jQuery_v3.6.0.js')
-        .pipe(dest('dist/assets/js/'));
+export const copyJquery = () => {
+    return gulp.src('src/assets/vendor/jQuery_v3.6.0.js')
+        .pipe(gulp.dest('dist/assets/js/'));
 };

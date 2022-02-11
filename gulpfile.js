@@ -1,17 +1,17 @@
-const {parallel, series} = require('gulp');
-const serve = require('./gulp/tasks/serve');
-const html = require('./gulp/tasks/html');
-const styles = require('./gulp/tasks/styles');
-const libs_styles = require('./gulp/tasks/libs_style');
-const copy_jquery = require('./gulp/tasks/copy_jquery');
-const scripts = require('./gulp/tasks/scripts');
-const libs_js = require('./gulp/tasks/libs_js');
-const ttf2woff = require('./gulp/tasks/ttf2woff');
-const ttf2woff2 = require('./gulp/tasks/ttf2woff2');
-const fonts = require('./gulp/tasks/fonts');
-const images = require('./gulp/tasks/images');
-const svg_sprite = require('./gulp/tasks/svg_sprite');
-const clean = require('./gulp/tasks/clean');
+import gulp from "gulp";
+import {serve} from "./gulp/tasks/serve.js";
+import {html} from "./gulp/tasks/html.js";
+import {styles} from "./gulp/tasks/styles.js";
+import {libs_style} from "./gulp/tasks/libs_style.js";
+import {copyJquery} from "./gulp/tasks/copy_jquery.js";
+import {scripts} from "./gulp/tasks/scripts.js";
+import {libs_js} from "./gulp/tasks/libs_js.js";
+import {ttf_to_woff} from "./gulp/tasks/ttf2woff.js";
+import {ttf_to_woff2} from "./gulp/tasks/ttf2woff2.js";
+import {fonts} from "./gulp/tasks/fonts.js";
+import {images} from "./gulp/tasks/images.js";
+import {svg_sprite} from "./gulp/tasks/svg_sprite.js";
+import {clean} from "./gulp/tasks/clean.js";
 
 function setMode(isProduction = false) {
     return cb => {
@@ -20,10 +20,9 @@ function setMode(isProduction = false) {
     }
 }
 
-// const dev = parallel(html, styles, scripts, fonts, images, vendor);
-const dev = parallel(html, styles, libs_styles, copy_jquery, scripts, libs_js, series(ttf2woff, ttf2woff2, fonts), images, svg_sprite);
-const build = series(clean, dev);
+const dev = gulp.parallel(html, styles, libs_style, copyJquery, scripts, libs_js, gulp.series(ttf_to_woff, ttf_to_woff2, fonts), images, svg_sprite);
+const build = gulp.series(clean, dev);
 
-module.exports.start = series(setMode(), build, serve);
-module.exports.build = series(setMode(true), build);
-module.exports.default = series(setMode(), build, serve);
+gulp.task('start', gulp.series(setMode(), build, serve));
+gulp.task('build', gulp.series(setMode(true), build));
+gulp.task('default', gulp.series(setMode(), build, serve));

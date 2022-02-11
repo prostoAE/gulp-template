@@ -1,15 +1,17 @@
-const {src, dest} = require('gulp');
-const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
-const scss = require('gulp-sass')(require('sass'));
-const groupMedia = require('gulp-group-css-media-queries');
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCss = require('gulp-clean-css');
-const rename = require('gulp-rename');
-const webpcss = require('gulp-webp-css');
+import gulp from "gulp";
+import plumber from "gulp-plumber";
+import sourcemaps from "gulp-sourcemaps";
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const scss = gulpSass( dartSass );
+import groupMedia from "gulp-group-css-media-queries";
+import autoprefixer from "gulp-autoprefixer";
+import cleanCss from "gulp-clean-css";
+import rename from "gulp-rename";
+import webpcss from "gulp-webp-css";
 
-module.exports = function styles() {
-    return src('src/assets/scss/style.scss')
+export const styles = () => {
+    return gulp.src('src/assets/scss/style.scss')
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(
@@ -26,9 +28,9 @@ module.exports = function styles() {
         )
         /*Раскоментировать если есть BG с картинкой*/
         // .pipe(webpcss())
-        .pipe(dest('dist/assets/css/'))
+        .pipe(gulp.dest('dist/assets/css/'))
         .pipe(cleanCss())
         .pipe(sourcemaps.write())
         .pipe(rename({extname: '.min.css'}))
-        .pipe(dest('dist/assets/css/'))
+        .pipe(gulp.dest('dist/assets/css/'))
 };

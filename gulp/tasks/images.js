@@ -1,17 +1,17 @@
-const {src, dest} = require('gulp');
-const webp = require('gulp-webp');
-const imagemin = require('gulp-imagemin');
+import gulp from "gulp";
+import webp from "gulp-webp";
+import imagemin from "gulp-imagemin";
 
-module.exports = function images() {
-    return src([
+export const images = () => {
+    return gulp.src([
         'src/assets/img/**/*.{jpg,png,svg,gif,ico,webp}',
         '!src/assets/img/svg/*'
     ])
         .pipe(webp({
             quality: 75
         }))
-        .pipe(dest('dist/assets/img/'))
-        .pipe(src([
+        .pipe(gulp.dest('dist/assets/img/'))
+        .pipe(gulp.src([
                 'src/assets/img/**/*.{jpg,png,svg,gif,ico,webp}',
                 '!src/assets/img/svg/*'
             ])
@@ -30,5 +30,5 @@ module.exports = function images() {
                 ]
             })
         ]))
-        .pipe(dest('dist/assets/img/'))
+        .pipe(gulp.dest('dist/assets/img/'))
 };

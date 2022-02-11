@@ -1,6 +1,6 @@
-const del = require('del');
+import del from "del";
 
-module.exports = function clean(cb) {
+export const clean = (cb) => {
     return del('dist').then(() => {
         cb()
     })

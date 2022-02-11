@@ -1,17 +1,17 @@
-const {watch, series} = require('gulp');
-const server = require('browser-sync').create();
-const html = require('./html');
-const styles = require('./styles');
-const scripts = require('./scripts');
-const images = require('./images');
-const svg_sprite = require('./svg_sprite');
+import gulp from "gulp";
+import server from "browser-sync";
+import {html} from "./html.js";
+import {styles} from "./styles.js";
+import {scripts} from "./scripts.js";
+import {images} from "./images.js";
+import {svg_sprite} from "./svg_sprite.js";
 
 function readyReload(cb) {
     server.reload();
     cb()
 }
 
-module.exports = function serve(cb) {
+export const serve = (cb) => {
     server.init({
         server: 'dist',
         port: 3000,
@@ -20,11 +20,11 @@ module.exports = function serve(cb) {
         cors: true
     });
 
-    watch('src/**/*.{html, php}', series(html, readyReload));
-    watch('src/assets/scss/**/*.scss', series(styles, readyReload));
-    watch('src/assets/js/**/*.js', series(scripts, readyReload));
-    watch('src/assets/img/**/*.{jpg,png,svg,gif,ico,webp}', series(images, readyReload));
-    watch('src/assets/img/svg/*.svg', series(svg_sprite, readyReload));
+    gulp.watch('src/**/*.{html, php}', gulp.series(html, readyReload));
+    gulp.watch('src/assets/scss/**/*.scss', gulp.series(styles, readyReload));
+    gulp.watch('src/assets/js/**/*.js', gulp.series(scripts, readyReload));
+    gulp.watch('src/assets/img/**/*.{jpg,png,svg,gif,ico,webp}', gulp.series(images, readyReload));
+    gulp.watch('src/assets/img/svg/*.svg', gulp.series(svg_sprite, readyReload));
 
     return cb();
 };
