@@ -8,7 +8,7 @@ import {scripts} from "./gulp/tasks/scripts.js";
 import {libs_js} from "./gulp/tasks/libs_js.js";
 import {ttf_to_woff} from "./gulp/tasks/ttf2woff.js";
 import {ttf_to_woff2} from "./gulp/tasks/ttf2woff2.js";
-import {fonts} from "./gulp/tasks/fonts.js";
+import {fontStyle} from "./gulp/tasks/fonts.js";
 import {images} from "./gulp/tasks/images.js";
 import {svg_sprite} from "./gulp/tasks/svg_sprite.js";
 import {clean} from "./gulp/tasks/clean.js";
@@ -20,7 +20,7 @@ function setMode(isProduction = false) {
     }
 }
 
-const dev = gulp.parallel(html, styles, libs_style, copyJquery, scripts, libs_js, gulp.series(ttf_to_woff, ttf_to_woff2, fonts), images, svg_sprite);
+const dev = gulp.parallel(html, libs_style, copyJquery, scripts, libs_js, gulp.series(ttf_to_woff, ttf_to_woff2, fontStyle, styles), images, svg_sprite);
 const build = gulp.series(clean, dev);
 
 gulp.task('start', gulp.series(setMode(), build, serve));

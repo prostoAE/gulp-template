@@ -1,36 +1,59 @@
 import fs from "fs";
-import path from "path";
+import gulp from "gulp";
 import chalk from "chalk";
 
-const allowedFormats = ['woff', 'woff2', 'ttf'];
-
-let srcFonts = 'src/assets/scss/_local-fonts.scss';
 let appFonts = 'dist/assets/fonts/';
 
-export const fonts = (done) => {
-    fs.readdir(appFonts, (err, items) => {
-        if (items) {
-            let currentName;
+export const fontStyle = () => {
+    let fontsFile = 'src/assets/scss/base/_typography.scss';
 
-            items.forEach((item) => {
-                let ext = path.extname(item);
-                let name = path.basename(item, ext);
-
-                if (allowedFormats.includes(ext.substring(1)) && currentName !== name) {
-                    fs.appendFile(srcFonts, `@include font-face("${name}", "${name}", 400);\r\n`, () => {
-                    });
-                    console.log(chalk.yellow(`
-                            Added new font: ${name}.
-                            ----------------------------------------------------------------------------------
-                            Please, move mixin call from src/assets/scss/_local-fonts.scss to src/assets/scss/base/_typography.scss and then change it!
-                            ----------------------------------------------------------------------------------
-                            `));
+    fs.readdir(appFonts, (err, fontsFiles) => {
+        if (fontsFiles) {
+            if (!fs.existsSync(fontsFile)) {
+                fs.writeFile(fontsFile, '', cb);
+                let newFileOnly;
+                for (let i = 0; i < fontsFiles.length; i++) {
+                    let fontFileName = fontsFiles[i].split('.')[0];
+                    if (newFileOnly !== fontFileName) {
+                        let fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
+                        let fontWeight = fontFileName.split('-')[1] ? fontFileName.split('-')[1] : fontFileName;
+                        if (fontWeight.toLowerCase() === 'thin') {
+                            fontWeight = 100;
+                        } else if (fontWeight.toLowerCase() === 'extralight') {
+                            fontWeight = 200;
+                        } else if (fontWeight.toLowerCase() === 'light') {
+                            fontWeight = 300;
+                        } else if (fontWeight.toLowerCase() === 'medium') {
+                            fontWeight = 500;
+                        } else if (fontWeight.toLowerCase() === 'semibold') {
+                            fontWeight = 600;
+                        } else if (fontWeight.toLowerCase() === 'bold') {
+                            fontWeight = 700;
+                        } else if (fontWeight.toLowerCase() === 'extrabold' || fontWeight.toLowerCase() === 'heavy') {
+                            fontWeight = 800;
+                        } else if (fontWeight.toLowerCase() === 'black') {
+                            fontWeight = 900;
+                        } else {
+                            fontWeight = 400;
+                        }
+                        fs.appendFile(fontsFile,
+                            `@font-face {
+    font-family: ${fontName};
+    font-display: swap;
+    src: url('../fonts/${fontFileName}.woff2') format('woff2'),url('../fonts/${fontFileName}.woff') format('woff'), url('../fonts/${fontFileName}.ttf') format("truetype");
+    font-weight: ${fontWeight};
+    font-style: normal;
+}\r\n`, cb);
+                        newFileOnly = fontFileName;
+                    }
                 }
-
-                currentName = name;
-            });
+            } else {
+                console.log(chalk.yellow(`Файл scss/base/_typography.scss уже существует. Для обновления шрифтов его нужно удалить!`));
+            }
         }
     });
 
-    done();
+    return gulp.src('src/assets/');
+
+    function cb() {}
 };
