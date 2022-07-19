@@ -1,0 +1,11 @@
+@function stripUnit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@function rem($pxValue) {
+    @return #{stripUnit($pxValue) / stripUnit($fz-base)}rem;
+}
+
+@function percent($value, $containerWidth) {
+    @return #{calc($value / $containerWidth) * 100} + "%";
+}
