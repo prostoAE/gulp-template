@@ -10,10 +10,19 @@ $fz-base: 16px;
 // Shadows
 $box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
 
-// Breakpoints
+// Минимальная ширина страницы
 $minWidth: 320;
+// Ширина полотна (макета)
 $maxWidth: 1920;
+// Ширина ограничивающего контейнера
 $maxWidthContainer: 1140;
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 30;
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Breakpoints
 $xs: 575;
 $sm: 767;
 $md: 991;

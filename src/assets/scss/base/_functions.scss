@@ -1,11 +1,17 @@
-@function stripUnit($value) {
-    @return $value / ($value * 0 + 1);
+//REM
+@function rem($px) {
+    $result: math.div($px, 16) + rem;
+    @return $result;
 }
 
-@function rem($pxValue) {
-    @return #{stripUnit($pxValue) / stripUnit($fz-base)}rem;
+//EM
+@function em($px, $current: 16) {
+    $result: math.div($px, $current) + em;
+    @return $result;
 }
 
-@function percent($value, $containerWidth) {
-    @return #{calc($value / $containerWidth) * 100} + "%";
+//Percent
+@function percent($px, $from) {
+    $result: math.div($px, $from) * 100%;
+    @return $result;
 }
