@@ -1,3 +1,4 @@
-$(document).ready(function () {
-    console.log('script loaded')
-});
+import * as PWC from "./template-files/index.js"
+
+/* Menu Initialisations */
+// PWC.menuInit();

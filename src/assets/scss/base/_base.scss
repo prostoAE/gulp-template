@@ -5,4 +5,29 @@ html {
 
 body {
     font-family: $default-font;
+    // Скролл заблокирован
+    .lock & {
+        overflow: hidden;
+        touch-action: none;
+    }
+
+    // Сайт загружен
+    .loaded & {
+    }
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    // Прижимаем footer
+    > main {
+        flex: 1 1 auto;
+    }
+
+    // Фикс для слайдеров
+    > * {
+        min-width: 0;
+    }
 }

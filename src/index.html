@@ -2,13 +2,14 @@
 <html lang="en">
 @@include('./partials/_head.html', {title: 'Site Title'})
 <body>
-@@include('./partials/_header.html', {text: 'Header'})
+<div class="wrapper">
+    @@include('./partials/_header.html', {text: 'Header'})
 
-<img src="./assets/img/placeholder.png" alt="">
-<svg>
-    <use href="./assets/img/sprite/sprite.svg#home" fill="blue"/>
-</svg>
-
+    <img src="./assets/img/placeholder.png" alt="">
+    <svg>
+        <use href="./assets/img/sprite/sprite.svg#home" fill="blue"/>
+    </svg>
+</div>
 @@include('./partials/_popups.html')
 @@include('./partials/_scripts.html')
 </body>
