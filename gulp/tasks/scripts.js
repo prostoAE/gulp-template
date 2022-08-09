@@ -1,5 +1,7 @@
 import gulp from "gulp";
 import webpack from "webpack-stream";
+import plumber from "gulp-plumber";
+import notify from "gulp-notify";
 import fileinclude from "gulp-file-include";
 import babel from "gulp-babel";
 import sourcemaps from "gulp-sourcemaps";
@@ -8,6 +10,7 @@ import rename from "gulp-rename";
 
 export const scripts = () => {
     return gulp.src('src/assets/js/script.js')
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(fileinclude())
         // .pipe(sourcemaps.init())
         /*.pipe(babel({
