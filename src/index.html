@@ -1,17 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-@@include('./partials/_head.html', {title: 'Site Title'})
-<body>
-<div class="wrapper">
-    @@include('./partials/_header.html', {text: 'Header'})
+    @@include('./partials/_head.html', {title: 'Site Title'})
+    <body>
+        <div class="wrapper">
+            @@include('./partials/_header.html', {text: 'Header'})
 
-    <img src="./assets/img/placeholder.png" alt="">
-    <svg>
-        <use href="./assets/img/sprite/sprite.svg#home" fill="blue"/>
-    </svg>
-</div>
+            <img src="./assets/img/placeholder.png" alt="" />
+            <svg>
+                <use href="./assets/img/sprite/sprite.svg#home" fill="blue" />
+            </svg>
+        </div>
 
-@@include('./partials/_popups.html')
-@@include('./partials/_scripts.html')
-</body>
+        @@include('./partials/_popups.html')
+        @@include('./partials/_scripts.html')
+    </body>
 </html>
