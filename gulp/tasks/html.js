@@ -2,7 +2,7 @@ import gulp from "gulp";
 import plumber from "gulp-plumber";
 import fileinclude from "gulp-file-include";
 import {htmlValidator} from "gulp-w3c-html-validator";
-import webphtml from "gulp-webp-html";
+import webphtml from 'gulp-webp-html-nosvg';
 
 export const html = () => {
     return gulp.src(['src/*.{html,php}', '!src/partials/**/*.{html,php}'])

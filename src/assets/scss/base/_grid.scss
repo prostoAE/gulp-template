@@ -1,7 +1,7 @@
 [class*="__container"] {
     @if ($maxWidthContainer > 0) {
+        width: 100%;
         max-width: rem($maxWidthContainer);
-        box-sizing: content-box;
         margin: 0 auto;
     }
     @if ($containerPadding > 0) {
